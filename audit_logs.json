@@ -1,5 +1,19 @@
 [
   {
+    "user": "Piyush",
+    "action": "STOCK_UPDATE",
+    "details": "Updated item '4K UHD Monitor 27 inch' (#106)",
+    "id": "log_1784735111262",
+    "timestamp": "2026-07-22T15:45:11.262Z"
+  },
+  {
+    "user": "Piyush",
+    "action": "ITEM_ADD",
+    "details": "Created item 'Realme Buds T2x' (#118)",
+    "id": "log_1784735064549",
+    "timestamp": "2026-07-22T15:44:24.549Z"
+  },
+  {
     "user": "riya",
     "action": "STOCK_UPDATE",
     "details": "Adjusted '4K UHD Monitor 27 inch' (#106) quantity to 0",
