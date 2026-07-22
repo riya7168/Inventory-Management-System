@@ -1,0 +1,60 @@
+# Dependency folders
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build Files
+*.o
+*.obj
+*.exe
+*.out
+inventory_app
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile.old
+
+# Temporary Files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Coverage
+coverage/
+
+# Runtime Data
+*.pid
+
+# Cache
+.cache/
+
+# Generated Files
+dist/
+build/
+
+# Ignore uploaded profile images if stored locally
+uploads/
+
+# Package lock (optional)
+# package-lock.json

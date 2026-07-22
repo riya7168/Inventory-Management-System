@@ -1,0 +1,12 @@
+ID,Name,Category,Price,Quantity,ReorderLevel
+3,"ketchup","Souce",2.00,100,5
+101,"MacBook Pro 16","Electronics",2499.99,12,5
+102,"Dell XPS 15","Electronics",1899.50,8,3
+103,"Ergonomic Office Chair","Furniture",349.00,14,5
+104,"Mechanical Keyboard","Accessories",129.99,25,10
+105,"Wireless Gaming Mouse","Accessories",79.95,13,5
+106,"4K UHD Monitor 27 inch","Electronics",449.99,0,4
+107,"USB-C Multiport Dock","Accessories",59.99,18,8
+108,"Standing Desk Frame","Furniture",499.00,3,2
+200,"Wireless Earbuds","Accessories",149.99,13,5
+1001,"Body Wash","Shop",1.00,500,25

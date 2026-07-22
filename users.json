@@ -1,0 +1,63 @@
+[
+  {
+    "id": "u_admin",
+    "name": "System Admin",
+    "username": "admin",
+    "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "role": "Admin",
+    "status": "active",
+    "createdAt": "2026-07-21T18:30:00Z"
+  },
+  {
+    "id": "u_1784638946677",
+    "name": "Alex Rivers",
+    "username": "alex",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "Store Manager",
+    "status": "active",
+    "createdAt": "2026-07-21T13:02:26.677Z",
+    "mode": "Store Manager"
+  },
+  {
+    "id": "u_1784639005313",
+    "name": "riya",
+    "username": "riyaaaa",
+    "passwordHash": "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
+    "role": "Store Manager",
+    "status": "active",
+    "createdAt": "2026-07-21T13:03:25.313Z",
+    "mode": "Store Manager"
+  },
+  {
+    "id": "u_1784641905321",
+    "name": "Abhinav",
+    "username": "abhi_sanatani22",
+    "passwordHash": "3946259a858b6ba2a76770041490d296ee6c8556a65f89d3f15286cbccd556b8",
+    "role": "Store Manager",
+    "status": "active",
+    "createdAt": "2026-07-21T13:51:45.322Z",
+    "mode": "Store Manager"
+  },
+  {
+    "id": "u_1784642024555",
+    "name": "Jiyaaa",
+    "username": "jiya0331",
+    "passwordHash": "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
+    "role": "Store Manager",
+    "status": "pending",
+    "createdAt": "2026-07-21T13:53:44.555Z",
+    "mode": "Store Manager"
+  },
+  {
+    "id": "u_1784727016654_eb5261cc",
+    "name": "Abhinav",
+    "username": "Abhinav@990",
+    "email": "abhisingh940927@gmail.com",
+    "passwordHash": "f692a4f781716d9879a96bc3c836fc59a0b40828e78442d2eec4a8fe6c9188dd",
+    "role": "Store Manager",
+    "mode": "Store Manager",
+    "status": "active",
+    "createdAt": "2026-07-22T13:30:16.654Z",
+    "profilePic": null
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "user": "riya",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted '4K UHD Monitor 27 inch' (#106) quantity to 0",
+    "id": "log_1784640613489",
+    "timestamp": "2026-07-21T13:30:13.489Z"
+  },
+  {
+    "user": "riya",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted '4K UHD Monitor 27 inch' (#106) quantity to 1",
+    "id": "log_1784640612037",
+    "timestamp": "2026-07-21T13:30:12.037Z"
+  },
+  {
+    "user": "riya",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted '4K UHD Monitor 27 inch' (#106) quantity to 2",
+    "id": "log_1784640611837",
+    "timestamp": "2026-07-21T13:30:11.837Z"
+  },
+  {
+    "user": "riya",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted '4K UHD Monitor 27 inch' (#106) quantity to 3",
+    "id": "log_1784640611623",
+    "timestamp": "2026-07-21T13:30:11.623Z"
+  },
+  {
+    "user": "riya",
+    "action": "STOCK_UPDATE",
+    "details": "Restocked 'Wireless Gaming Mouse' (#105) by +10 units",
+    "id": "log_1784640593318",
+    "timestamp": "2026-07-21T13:29:53.318Z"
+  },
+  {
+    "user": "riya",
+    "action": "STOCK_UPDATE",
+    "details": "Restocked 'Ergonomic Office Chair' (#103) by +10 units",
+    "id": "log_1784639504144",
+    "timestamp": "2026-07-21T13:11:44.144Z"
+  },
+  {
+    "id": "log_seed_1",
+    "timestamp": "2026-07-21T18:00:00Z",
+    "user": "System Admin",
+    "action": "SYSTEM_INIT",
+    "details": "Initialized inventory database with seed items from CSV"
+  },
+  {
+    "id": "log_seed_2",
+    "timestamp": "2026-07-21T18:10:00Z",
+    "user": "System Admin",
+    "action": "STOCK_UPDATE",
+    "details": "Restocked item #200 (Wireless Earbuds) by +10 units"
+  }
+]
