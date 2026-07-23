@@ -619,7 +619,13 @@ async function handleRequest(req, res) {
     return;
   }
 
-  // Static File Serving (for local environment or direct file requests)
+  // Static File Serving (for local environment or serverless execution)
+  if (pathname === '/favicon.ico') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
   const staticPathname = pathname === '/' ? '/index.html' : pathname;
   const allowedStaticFiles = new Set(['/index.html', '/style.css', '/app.js']);
   if (!allowedStaticFiles.has(staticPathname)) {
