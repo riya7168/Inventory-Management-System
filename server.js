@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const os = require('os');
 
 loadEnvFile(path.join(__dirname, '.env'));
 loadEnvFile(path.join(__dirname, '.env.local'), true);
@@ -16,6 +17,10 @@ const MAX_JSON_BODY_BYTES = 3 * 1024 * 1024;
 const MAX_PROFILE_PHOTO_BYTES = 2 * 1024 * 1024;
 const ALLOWED_ACCOUNT_MODES = new Set(['Store Manager', 'Inventory Operator', 'Stock Auditor']);
 const sessions = new Map();
+
+let inMemoryUsers = null;
+let inMemoryAudit = null;
+let inMemoryInventory = null;
 
 function loadEnvFile(filePath, override = false) {
   if (!fs.existsSync(filePath)) return;
@@ -37,17 +42,38 @@ function loadEnvFile(filePath, override = false) {
   });
 }
 
-function getCsvEnv(name) {
-  return (process.env[name] || '')
-    .split(',')
-    .map(value => value.trim())
-    .filter(Boolean);
+function safeReadFile(filename) {
+  const tmpPath = path.join(os.tmpdir(), filename);
+  if (fs.existsSync(tmpPath)) {
+    try {
+      return fs.readFileSync(tmpPath, 'utf8');
+    } catch (e) {}
+  }
+  const localPath = path.join(__dirname, filename);
+  if (fs.existsSync(localPath)) {
+    try {
+      return fs.readFileSync(localPath, 'utf8');
+    } catch (e) {}
+  }
+  return null;
 }
 
-function getAuthorizedParties() {
-  const configured = getCsvEnv('ALLOWED_ORIGINS');
-  if (configured.length > 0) return configured;
-  return [`http://localhost:${PORT}`, `http://127.0.0.1:${PORT}`];
+function safeWriteFile(filename, content) {
+  const localPath = path.join(__dirname, filename);
+  const tmpPath = path.join(os.tmpdir(), filename);
+
+  try {
+    fs.writeFileSync(localPath, content, 'utf8');
+    return;
+  } catch (err) {
+    // Read-only file system in Vercel serverless lambda; fallback to tmp
+  }
+
+  try {
+    fs.writeFileSync(tmpPath, content, 'utf8');
+  } catch (err) {
+    console.error(`Failed writing ${filename}:`, err);
+  }
 }
 
 function jsonResponse(res, statusCode, data) {
@@ -146,21 +172,26 @@ function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
 }
 
-// Read users from file
+// Read users from file or cache
 function getUsers() {
-  try {
-    if (fs.existsSync(USERS_PATH)) {
-      return JSON.parse(fs.readFileSync(USERS_PATH, 'utf8'));
+  if (inMemoryUsers) return inMemoryUsers;
+  const content = safeReadFile('users.json');
+  if (content) {
+    try {
+      inMemoryUsers = JSON.parse(content);
+      return inMemoryUsers;
+    } catch (err) {
+      console.error('Error reading users.json:', err);
     }
-  } catch (err) {
-    console.error('Error reading users.json:', err);
   }
-  return [];
+  inMemoryUsers = [];
+  return inMemoryUsers;
 }
 
-// Write users to file
+// Write users to file and cache
 function saveUsers(users) {
-  fs.writeFileSync(USERS_PATH, JSON.stringify(users, null, 2), 'utf8');
+  inMemoryUsers = users;
+  safeWriteFile('users.json', JSON.stringify(users, null, 2));
 }
 
 function toSafeUser(user) {
@@ -237,19 +268,24 @@ async function requireAdminUser(req, res) {
 
 // Read audit logs
 function getAuditLogs() {
-  try {
-    if (fs.existsSync(AUDIT_PATH)) {
-      return JSON.parse(fs.readFileSync(AUDIT_PATH, 'utf8'));
+  if (inMemoryAudit) return inMemoryAudit;
+  const content = safeReadFile('audit_logs.json');
+  if (content) {
+    try {
+      inMemoryAudit = JSON.parse(content);
+      return inMemoryAudit;
+    } catch (err) {
+      console.error('Error reading audit_logs.json:', err);
     }
-  } catch (err) {
-    console.error('Error reading audit_logs.json:', err);
   }
-  return [];
+  inMemoryAudit = [];
+  return inMemoryAudit;
 }
 
 // Save audit logs
 function saveAuditLogs(logs) {
-  fs.writeFileSync(AUDIT_PATH, JSON.stringify(logs, null, 2), 'utf8');
+  inMemoryAudit = logs;
+  safeWriteFile('audit_logs.json', JSON.stringify(logs, null, 2));
 }
 
 // Helper to parse CSV into JSON objects
@@ -303,17 +339,34 @@ function formatCSV(items) {
   return csv;
 }
 
-const server = http.createServer(async (req, res) => {
+function getInventoryItems() {
+  if (inMemoryInventory) return inMemoryInventory;
+  const content = safeReadFile('inventory.csv');
+  if (content) {
+    inMemoryInventory = parseCSV(content);
+    return inMemoryInventory;
+  }
+  inMemoryInventory = [];
+  return inMemoryInventory;
+}
+
+function saveInventoryItems(items) {
+  inMemoryInventory = items;
+  const csvContent = formatCSV(items);
+  safeWriteFile('inventory.csv', csvContent);
+}
+
+async function handleRequest(req, res) {
   // CORS Headers
   const origin = req.headers.origin;
-  const allowedOrigins = getAuthorizedParties();
-  if (origin && allowedOrigins.includes(origin)) {
+  if (origin) {
     res.setHeader('Access-Control-Allow-Origin', origin);
-  } else if (!origin) {
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  } else {
     res.setHeader('Access-Control-Allow-Origin', '*');
   }
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cookie');
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
@@ -321,7 +374,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  const requestUrl = new URL(req.url, `http://localhost:${PORT}`);
+  const requestUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = requestUrl.pathname;
 
   if (pathname === '/api/config' && req.method === 'GET') {
@@ -547,14 +600,8 @@ const server = http.createServer(async (req, res) => {
     const auth = await requireActiveUser(req, res);
     if (!auth) return;
 
-    fs.readFile(CSV_PATH, 'utf8', (err, data) => {
-      if (err) {
-        jsonResponse(res, 500, { error: 'Failed to read inventory.csv' });
-        return;
-      }
-      const items = parseCSV(data);
-      jsonResponse(res, 200, items);
-    });
+    const items = getInventoryItems();
+    jsonResponse(res, 200, items);
     return;
   }
 
@@ -564,21 +611,15 @@ const server = http.createServer(async (req, res) => {
 
     try {
       const items = await readJsonBody(req);
-      const csvContent = formatCSV(items);
-      fs.writeFile(CSV_PATH, csvContent, 'utf8', (err) => {
-        if (err) {
-          jsonResponse(res, 500, { error: 'Failed to write inventory.csv' });
-          return;
-        }
-        jsonResponse(res, 200, { success: true, message: 'Updated inventory.csv successfully' });
-      });
+      saveInventoryItems(items);
+      jsonResponse(res, 200, { success: true, message: 'Updated inventory.csv successfully' });
     } catch (err) {
       jsonResponse(res, 400, { error: 'Invalid JSON body' });
     }
     return;
   }
 
-  // Static File Serving
+  // Static File Serving (for local environment or direct file requests)
   const staticPathname = pathname === '/' ? '/index.html' : pathname;
   const allowedStaticFiles = new Set(['/index.html', '/style.css', '/app.js']);
   if (!allowedStaticFiles.has(staticPathname)) {
@@ -608,8 +649,13 @@ const server = http.createServer(async (req, res) => {
       res.end(content, 'utf8');
     }
   });
-});
+}
 
-server.listen(PORT, () => {
-  console.log(`Inventory OS Pro Server running at http://localhost:${PORT}`);
-});
+module.exports = handleRequest;
+
+if (require.main === module) {
+  const server = http.createServer(handleRequest);
+  server.listen(PORT, () => {
+    console.log(`Inventory OS Pro Server running at http://localhost:${PORT}`);
+  });
+}

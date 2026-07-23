@@ -1,5 +1,159 @@
 [
   {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 10",
+    "id": "log_1784792866821",
+    "timestamp": "2026-07-23T07:47:46.821Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 9",
+    "id": "log_1784792865930",
+    "timestamp": "2026-07-23T07:47:45.930Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 8",
+    "id": "log_1784792865713",
+    "timestamp": "2026-07-23T07:47:45.713Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 7",
+    "id": "log_1784792865537",
+    "timestamp": "2026-07-23T07:47:45.537Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 6",
+    "id": "log_1784792865357",
+    "timestamp": "2026-07-23T07:47:45.357Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 5",
+    "id": "log_1784792864961",
+    "timestamp": "2026-07-23T07:47:44.961Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 4",
+    "id": "log_1784792864137",
+    "timestamp": "2026-07-23T07:47:44.137Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 3",
+    "id": "log_1784792863286",
+    "timestamp": "2026-07-23T07:47:43.286Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 2",
+    "id": "log_1784792862502",
+    "timestamp": "2026-07-23T07:47:42.502Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 1",
+    "id": "log_1784792861700",
+    "timestamp": "2026-07-23T07:47:41.700Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Updated item 'Standing Desk Frame' (#108)",
+    "id": "log_1784792859071",
+    "timestamp": "2026-07-23T07:47:39.071Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 0",
+    "id": "log_1784792849098",
+    "timestamp": "2026-07-23T07:47:29.098Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 1",
+    "id": "log_1784792847126",
+    "timestamp": "2026-07-23T07:47:27.126Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 2",
+    "id": "log_1784792846422",
+    "timestamp": "2026-07-23T07:47:26.422Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted '4K UHD Monitor 27 inch' (#106) quantity to 5",
+    "id": "log_1784792839977",
+    "timestamp": "2026-07-23T07:47:19.977Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted '4K UHD Monitor 27 inch' (#106) quantity to 4",
+    "id": "log_1784792839128",
+    "timestamp": "2026-07-23T07:47:19.128Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted '4K UHD Monitor 27 inch' (#106) quantity to 3",
+    "id": "log_1784792838248",
+    "timestamp": "2026-07-23T07:47:18.248Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted '4K UHD Monitor 27 inch' (#106) quantity to 2",
+    "id": "log_1784792837226",
+    "timestamp": "2026-07-23T07:47:17.226Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted '4K UHD Monitor 27 inch' (#106) quantity to 1",
+    "id": "log_1784792836128",
+    "timestamp": "2026-07-23T07:47:16.128Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Wireless Speaker' (#111) quantity to 40",
+    "id": "log_1784792833361",
+    "timestamp": "2026-07-23T07:47:13.361Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "STOCK_UPDATE",
+    "details": "Adjusted 'Wireless Speaker' (#111) quantity to 41",
+    "id": "log_1784792831098",
+    "timestamp": "2026-07-23T07:47:11.098Z"
+  },
+  {
+    "user": "Riya Sharma",
+    "action": "ITEM_ADD",
+    "details": "Created item 'Wireless Speaker' (#111)",
+    "id": "log_1784792818598",
+    "timestamp": "2026-07-23T07:46:58.598Z"
+  },
+  {
     "user": "Piyush",
     "action": "STOCK_UPDATE",
     "details": "Updated item '4K UHD Monitor 27 inch' (#106)",

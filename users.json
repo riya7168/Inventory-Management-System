@@ -71,5 +71,17 @@
     "status": "active",
     "createdAt": "2026-07-22T15:40:24.521Z",
     "profilePic": null
+  },
+  {
+    "id": "u_1784792700863_02a3daf4",
+    "name": "Riya Sharma",
+    "username": "riya06",
+    "email": "riyasharma7168@gmail.com",
+    "passwordHash": "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
+    "role": "Store Manager",
+    "mode": "Store Manager",
+    "status": "active",
+    "createdAt": "2026-07-23T07:45:00.871Z",
+    "profilePic": null
   }
 ]
