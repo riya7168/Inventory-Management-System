@@ -2,7 +2,14 @@
   "version": 2,
   "functions": {
     "api/index.js": {
-      "includeFiles": "index.html,style.css,app.js,users.json,inventory.csv,audit_logs.json"
+      "includeFiles": [
+        "index.html",
+        "style.css",
+        "app.js",
+        "users.json",
+        "inventory.csv",
+        "audit_logs.json"
+      ]
     }
   },
   "rewrites": [

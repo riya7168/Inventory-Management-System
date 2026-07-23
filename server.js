@@ -46,6 +46,12 @@ function safeReadFile(filename) {
       return fs.readFileSync(tmpPath, 'utf8');
     } catch (e) {}
   }
+  const cwdPath = path.join(process.cwd(), filename);
+  if (fs.existsSync(cwdPath)) {
+    try {
+      return fs.readFileSync(cwdPath, 'utf8');
+    } catch (e) {}
+  }
   const localPath = path.join(__dirname, filename);
   if (fs.existsSync(localPath)) {
     try {
@@ -64,13 +70,17 @@ function safeReadFile(filename) {
 function safeWriteFile(filename, content) {
   const localPath = path.join(__dirname, filename);
   const tmpPath = path.join(os.tmpdir(), filename);
+  const cwdPath = path.join(process.cwd(), filename);
 
   try {
     fs.writeFileSync(localPath, content, 'utf8');
     return;
-  } catch (err) {
-    // Read-only file system in Vercel serverless lambda; fallback to tmp
-  }
+  } catch (err) {}
+
+  try {
+    fs.writeFileSync(cwdPath, content, 'utf8');
+    return;
+  } catch (err) {}
 
   try {
     fs.writeFileSync(tmpPath, content, 'utf8');
