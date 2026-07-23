@@ -8,9 +8,6 @@ loadEnvFile(path.join(__dirname, '.env'));
 loadEnvFile(path.join(__dirname, '.env.local'), true);
 
 const PORT = Number(process.env.PORT || 3000);
-const CSV_PATH = path.join(__dirname, 'inventory.csv');
-const USERS_PATH = path.join(__dirname, 'users.json');
-const AUDIT_PATH = path.join(__dirname, 'audit_logs.json');
 const SESSION_COOKIE = 'inventory_session';
 const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
 const MAX_JSON_BODY_BYTES = 3 * 1024 * 1024;
@@ -53,6 +50,12 @@ function safeReadFile(filename) {
   if (fs.existsSync(localPath)) {
     try {
       return fs.readFileSync(localPath, 'utf8');
+    } catch (e) {}
+  }
+  const parentPath = path.join(__dirname, '..', filename);
+  if (fs.existsSync(parentPath)) {
+    try {
+      return fs.readFileSync(parentPath, 'utf8');
     } catch (e) {}
   }
   return null;
@@ -619,7 +622,7 @@ async function handleRequest(req, res) {
     return;
   }
 
-  // Static File Serving (for local environment or serverless execution)
+  // Static File Serving (for local environment or fallback)
   if (pathname === '/favicon.ico') {
     res.writeHead(204);
     res.end();
@@ -634,27 +637,19 @@ async function handleRequest(req, res) {
     return;
   }
 
-  const filePath = path.join(__dirname, staticPathname);
-  const ext = path.extname(filePath);
-  let contentType = 'text/html';
-
-  if (ext === '.css') contentType = 'text/css';
-  if (ext === '.js') contentType = 'text/javascript';
-
-  fs.readFile(filePath, (err, content) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        res.writeHead(404, { 'Content-Type': 'text/html' });
-        res.end('<h1>404 Not Found</h1>');
-      } else {
-        res.writeHead(500);
-        res.end(`Server Error: ${err.code}`);
-      }
-    } else {
-      res.writeHead(200, { 'Content-Type': contentType });
-      res.end(content, 'utf8');
-    }
-  });
+  const cleanFilename = staticPathname.replace(/^\//, '');
+  const content = safeReadFile(cleanFilename);
+  if (content !== null) {
+    const ext = path.extname(cleanFilename);
+    let contentType = 'text/html';
+    if (ext === '.css') contentType = 'text/css';
+    if (ext === '.js') contentType = 'text/javascript';
+    res.writeHead(200, { 'Content-Type': contentType });
+    res.end(content, 'utf8');
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/html' });
+    res.end('<h1>404 Not Found</h1>');
+  }
 }
 
 module.exports = handleRequest;

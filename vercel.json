@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "outputDirectory": ".",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "index.html,style.css,app.js,users.json,inventory.csv,audit_logs.json"
+    }
+  },
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/api/(.*)",
       "destination": "/api/index.js"
     }
   ]
