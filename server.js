@@ -4,8 +4,7 @@ const path = require('path');
 const crypto = require('crypto');
 const os = require('os');
 
-loadEnvFile(path.join(__dirname, '.env'));
-loadEnvFile(path.join(__dirname, '.env.local'), true);
+// NOTE: loadEnvFile is defined below and called after its definition
 
 const PORT = Number(process.env.PORT || 3000);
 const SESSION_COOKIE = 'inventory_session';
@@ -122,24 +121,27 @@ let inMemoryAudit = null;
 let inMemoryInventory = null;
 
 function loadEnvFile(filePath, override = false) {
-  if (!fs.existsSync(filePath)) return;
-
-  const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/);
-  lines.forEach(line => {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) return;
-
-    const equalsIndex = trimmed.indexOf('=');
-    if (equalsIndex === -1) return;
-
-    const key = trimmed.slice(0, equalsIndex).trim();
-    let value = trimmed.slice(equalsIndex + 1).trim();
-    value = value.replace(/^['"]|['"]$/g, '');
-    if (key && (override || process.env[key] === undefined)) {
-      process.env[key] = value;
-    }
-  });
+  try {
+    if (!fs.existsSync(filePath)) return;
+    const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/);
+    lines.forEach(line => {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) return;
+      const equalsIndex = trimmed.indexOf('=');
+      if (equalsIndex === -1) return;
+      const key = trimmed.slice(0, equalsIndex).trim();
+      let value = trimmed.slice(equalsIndex + 1).trim();
+      value = value.replace(/^['"]|['"]$/g, '');
+      if (key && (override || process.env[key] === undefined)) {
+        process.env[key] = value;
+      }
+    });
+  } catch (e) {}
 }
+
+// Call after definition
+try { loadEnvFile(path.join(__dirname, '.env')); } catch(e) {}
+try { loadEnvFile(path.join(__dirname, '.env.local'), true); } catch(e) {}
 
 function safeReadFile(filename) {
   const tmpPath = path.join(os.tmpdir(), filename);
@@ -483,35 +485,36 @@ function saveInventoryItems(items) {
 }
 
 async function handleRequest(req, res) {
-  // CORS Headers
-  const origin = req.headers.origin;
-  if (origin) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-  } else {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-  }
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cookie, X-Session-Token');
+  try {
+    // CORS Headers
+    const origin = req.headers && req.headers.origin;
+    if (origin) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+    } else {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+    }
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cookie, X-Session-Token');
 
-  if (req.method === 'OPTIONS') {
-    res.writeHead(204);
-    res.end();
-    return;
-  }
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204);
+      res.end();
+      return;
+    }
 
-  const requestUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-  const pathname = requestUrl.pathname;
+    const pathname = (req.url || '/').split('?')[0];
 
-  if (pathname === '/api/config' && req.method === 'GET') {
-    jsonResponse(res, 200, {
-      authProvider: 'local-db',
-      dbType: 'Local JSON & CSV (Zero External Keys)',
-      profilePhotoMaxBytes: MAX_PROFILE_PHOTO_BYTES,
-      version: '2.5.0'
-    });
-    return;
-  }
+    if (pathname === '/api/config' && req.method === 'GET') {
+      jsonResponse(res, 200, {
+        authProvider: 'local-db',
+        dbType: 'Local JSON & CSV (Zero External Keys)',
+        profilePhotoMaxBytes: MAX_PROFILE_PHOTO_BYTES,
+        version: '2.5.0'
+      });
+      return;
+    }
+
 
   // --- AUTHENTICATION API ENDPOINTS (LOCAL NODE SESSIONS) ---
   if (pathname === '/api/auth/me' && req.method === 'GET') {
@@ -783,7 +786,15 @@ async function handleRequest(req, res) {
     res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end('<h1>404 Not Found</h1>');
   }
+} catch (fatalErr) {
+  console.error('Fatal request handler error:', fatalErr);
+  if (!res.headersSent) {
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Internal Server Error', message: fatalErr.message }));
+  }
 }
+}
+
 
 module.exports = handleRequest;
 
