@@ -4,6 +4,12 @@
 // Zero External Keys • Self-Contained JSON & CSV Engine
 // =============================================================
 
+// Browser-only guard: this file must never run in Node.js / Vercel serverless
+if (typeof window === 'undefined') {
+  // Running in Node.js — do nothing (file is served as static text, not executed)
+  // This guard prevents ReferenceError: localStorage is not defined on Vercel
+} else {
+
 // Enterprise State Management
 let inventoryMap = new Map(); // SKU ID -> Product Object
 let auditLogs = [];
@@ -11,6 +17,7 @@ let allUsers = []; // Registered user accounts (for Admin view)
 let currentUser = null;
 let currentView = 'overview';
 let sessionToken = localStorage.getItem('inventory_session_token') || '';
+
 
 // Catalog Pagination & Filtering State
 let currentPage = 1;
@@ -2065,3 +2072,6 @@ function exportExecutiveReport() {
 
   window.print();
 }
+
+} // end browser-only guard
+
