@@ -1,5 +1,12 @@
 [
   {
+    "action": "STOCK_UPDATE",
+    "details": "Added 5 units of MacBook Pro 16",
+    "id": "log_1787230517115",
+    "user": "Alex Rivers",
+    "timestamp": "2026-08-20T12:55:17.115Z"
+  },
+  {
     "user": "Riya Sharma",
     "action": "STOCK_UPDATE",
     "details": "Adjusted 'Standing Desk Frame' (#108) quantity to 10",

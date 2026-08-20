@@ -1,87 +1,86 @@
 [
   {
     "id": "u_admin",
-    "name": "System Admin",
+    "name": "System Administrator",
     "username": "admin",
+    "email": "admin@inventoryos.pro",
     "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
     "role": "Admin",
+    "mode": "System Admin",
     "status": "active",
-    "createdAt": "2026-07-21T18:30:00Z"
+    "createdAt": "2026-08-01T10:00:00.000Z",
+    "profilePic": null
   },
   {
-    "id": "u_1784638946677",
+    "id": "u_alex",
     "name": "Alex Rivers",
     "username": "alex",
-    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
-    "role": "Store Manager",
-    "status": "active",
-    "createdAt": "2026-07-21T13:02:26.677Z",
-    "mode": "Store Manager"
-  },
-  {
-    "id": "u_1784639005313",
-    "name": "riya",
-    "username": "riyaaaa",
-    "passwordHash": "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
-    "role": "Store Manager",
-    "status": "active",
-    "createdAt": "2026-07-21T13:03:25.313Z",
-    "mode": "Store Manager"
-  },
-  {
-    "id": "u_1784641905321",
-    "name": "Abhinav",
-    "username": "abhi_sanatani22",
-    "passwordHash": "3946259a858b6ba2a76770041490d296ee6c8556a65f89d3f15286cbccd556b8",
-    "role": "Store Manager",
-    "status": "active",
-    "createdAt": "2026-07-21T13:51:45.322Z",
-    "mode": "Store Manager"
-  },
-  {
-    "id": "u_1784642024555",
-    "name": "Jiyaaa",
-    "username": "jiya0331",
-    "passwordHash": "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
-    "role": "Store Manager",
-    "status": "pending",
-    "createdAt": "2026-07-21T13:53:44.555Z",
-    "mode": "Store Manager"
-  },
-  {
-    "id": "u_1784727016654_eb5261cc",
-    "name": "Abhinav",
-    "username": "Abhinav@990",
-    "email": "abhisingh940927@gmail.com",
-    "passwordHash": "f692a4f781716d9879a96bc3c836fc59a0b40828e78442d2eec4a8fe6c9188dd",
+    "email": "alex.rivers@inventoryos.pro",
+    "passwordHash": "d9508122cd143d69df229bf3624b7bcb2b8ac81ed210a0c926455ef119c12abd",
     "role": "Store Manager",
     "mode": "Store Manager",
     "status": "active",
-    "createdAt": "2026-07-22T13:30:16.654Z",
-    "profilePic": null
+    "createdAt": "2026-08-05T12:30:00.000Z",
+    "profilePic": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
   },
   {
-    "id": "u_1784734824520_2f4bcfd5",
-    "name": "Piyush",
-    "username": "piyush04",
-    "email": "riyasharma7168@gmail.com",
-    "passwordHash": "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
-    "role": "Store Manager",
-    "mode": "Store Manager",
-    "status": "active",
-    "createdAt": "2026-07-22T15:40:24.521Z",
-    "profilePic": null
-  },
-  {
-    "id": "u_1784792700863_02a3daf4",
+    "id": "u_riya",
     "name": "Riya Sharma",
     "username": "riya06",
-    "email": "riyasharma7168@gmail.com",
-    "passwordHash": "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
+    "email": "riya.sharma@inventoryos.pro",
+    "passwordHash": "bc97aaa7b5bde4bae9d3b658e6d4bf711b2d8bb5d7a27f17e95815efc6e0618d",
     "role": "Store Manager",
     "mode": "Store Manager",
     "status": "active",
-    "createdAt": "2026-07-23T07:45:00.871Z",
+    "createdAt": "2026-08-10T14:15:00.000Z",
+    "profilePic": null
+  },
+  {
+    "id": "u_auditor",
+    "name": "Jordan Lee",
+    "username": "auditor",
+    "email": "jordan.auditor@inventoryos.pro",
+    "passwordHash": "5b92db4dfb561dc69c949f34d36f5db0f8b30811be3a2949d85c5001279e9b1a",
+    "role": "Store Manager",
+    "mode": "Stock Auditor",
+    "status": "active",
+    "createdAt": "2026-08-12T09:00:00.000Z",
+    "profilePic": null
+  },
+  {
+    "id": "u_pending_jiya",
+    "name": "Jiya Patel",
+    "username": "jiya0331",
+    "email": "jiya.patel@example.com",
+    "passwordHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "role": "Store Manager",
+    "mode": "Inventory Operator",
+    "status": "pending",
+    "createdAt": "2026-08-18T16:20:00.000Z",
+    "profilePic": null
+  },
+  {
+    "id": "u_1787230506159_ecf32323",
+    "name": "Sam Taylor",
+    "username": "samtaylor_1787230506159",
+    "email": "sam@warehouse.com",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "Store Manager",
+    "mode": "Store Manager",
+    "status": "pending",
+    "createdAt": "2026-08-20T12:55:06.159Z",
+    "profilePic": null
+  },
+  {
+    "id": "u_1787230517113_1e81c5a7",
+    "name": "Sam Taylor",
+    "username": "samtaylor_1787230517113",
+    "email": "sam@warehouse.com",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "Store Manager",
+    "mode": "Store Manager",
+    "status": "active",
+    "createdAt": "2026-08-20T12:55:17.113Z",
     "profilePic": null
   }
 ]
